@@ -1,0 +1,84 @@
+<html>
+
+
+
+<style>
+
+body,html{
+	height: 100%;
+	width: 100%;
+	margin:0px;
+	padding: 0px;
+}
+
+#video{
+	height: 100%;
+	width: 100%;
+	background-color: #000;
+}
+
+#btn{
+	position: absolute;
+	top:10px;
+	left:10px;
+	background-color: #FF9900;
+	cursor: pointer;
+	z-index: 99;
+	height: 40px;
+	width: 40px;
+}
+
+</style>
+
+<body>
+
+<img id="video" src="" />
+
+<div id="btn"></div>
+
+</body>
+
+
+<script>
+
+var ip = "172.16.237.102";
+
+//------------------------------------------//
+
+var url = "http://" + ip + ":8080/video.jpeg";
+
+var currentStatus = "show";
+
+var btn = document.getElementById("btn");
+
+btn.addEventListener("click",function(){
+	if( currentStatus == "hide" ){
+		currentStatus = "show";
+
+	}
+	else if(currentStatus == "show" ){
+		currentStatus = "hide";
+	}
+
+	toggleVideo(currentStatus);
+
+})
+
+var toggleVideo = function(status){
+	var video = document.getElementById("video");
+
+	if(status == "show"){
+		video.src = url;
+	}
+	else if(status == "hide"){
+		video.src = "";
+	}
+
+}
+
+
+</script>
+
+
+
+</html>

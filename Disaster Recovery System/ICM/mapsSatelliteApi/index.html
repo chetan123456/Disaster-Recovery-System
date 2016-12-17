@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Simple Map</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.2/p5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.2/addons/p5.dom.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.2/addons/p5.sound.min.js"></script>
+    <!--call jquery lib-->
+    <!-- <script src="../p5.gif.min.js" type="text/javascript"></script>
+      <script src="../p5.gif.js" type="text/javascript"></script> -->
+      <script src="p5.serial.js"></script>
+    <script src="satelliteMap.js"></script>
+    <link rel="stylesheet" type="text/css" href="satelliteMap.css">
+
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+    <style>
+
+    </style>
+  </head>
+  <body>
+
+  <img id="floor-Map" src="resources/ITP floor map.png">
+  <img id="floor-Map-Exit1" src="resources/exit1.png">
+    <img id="arrows" src="resources/arrowsDirection.png">
+
+  <div id="rectange-Site-Status-Header"></div>
+  <div id="rectange-Site-Status"></div>
+  <div id="rectangle-AR-View"></div>
+
+  <div id="site-status"><p>Site Status</p></div>
+  <div id="site-status-content-info"<p>ITP 4th Floor - Site Normal</p></div>
+  <div id="site-status-content-info-hidden"><p>ITP 4th Floor - Compromised <br /><br />Fire source - Electrical Closet</p></div>
+
+  <div id="header-AR-View-FireFighters"><p>Fire Fighters AR View</p></div>
+  <div id="AR-View-Camera"><p>No Team Dispatched</p></div>
+
+  <div id="floating-panel"><input type="button" value="Auto Rotate" onclick="autoRotate();"></div>
+<div id="map"></div>
+
+<img id="video" src="" />
+<div id="btn"></div>
+<img id = "fire" src="animated-fire.gif"/>
+<img id = "fire1" src="animated-fire.gif"/>
+<img id = "victims" src="resources/ballFade.gif"/>
+
+
+<!-- Replace the value of the key parameter with your own API key. -->
+<script>
+
+var ip = "172.16.236.165";
+
+//------------------------------------------//
+
+var url = "http://" + ip + ":8080/video.jpeg";
+
+var currentStatus = "show";
+
+var btn = document.getElementById("btn");
+
+btn.addEventListener("click",function(){
+	if( currentStatus == "hide" ){
+		currentStatus = "show";
+
+	}
+	else if(currentStatus == "show" ){
+		currentStatus = "hide";
+	}
+
+	toggleVideo(currentStatus);
+
+})
+
+var toggleVideo = function(status){
+	var video = document.getElementById("video");
+
+	if(status == "show"){
+		video.src = url;
+	}
+	else if(status == "hide"){
+		video.src = "";
+	}
+
+}
+
+
+</script>
+
+
+<script async defer
+src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA3FDs-0XHw_CBGt3Yzq8yJT1TGe0dcBHQ&callback=initMap">
+
+</script>
+
+<!-- Control visibility of fire -->
+
+<script type="text/javascript">
+
+    //temprature sensor controls
+       var e = document.getElementById("fire");
+        var f = document.getElementById("floor-Map-Exit1");
+        var g = document.getElementById("site-status-content-info-hidden")
+        var h = document.getElementById("site-status-content-info");
+        var arrow = document.getElementById("arrows");
+        var noTeamDispatched = document.getElementById("AR-View-Camera");
+        console.log("e: "+e);
+
+        //TempPot1 controls-------------------------
+        var e1 = document.getElementById("fire1");
+
+        //myCallback---------------------------------
+
+
+       function myCallBack(){
+        if(checkStatement == false){
+        console.log("test");
+        e.setAttribute('style', 'visibility: visible');
+        f.setAttribute('style', 'visibility: visible');
+        g.setAttribute('style', 'visibility: visible');
+        h.setAttribute('style', 'visibility: hidden');
+        noTeamDispatched.setAttribute('style', 'visibility: hidden');
+
+          arrow.setAttribute('style', 'visibility: visible');
+       }
+      else if (checkStatement == true) {
+        e.setAttribute('style', 'visibility: hidden');
+        f.setAttribute('style', 'visibility: hidden');
+        g.setAttribute('style', 'visibility: hidden');
+        h.setAttribute('style', 'visibility: visible');
+          noTeamDispatched.setAttribute('style', 'visibility: visible');
+        arrow.setAttribute('style', 'visibility: hidden');
+        console.log("tempsensor myCallback into function");
+      }
+    }
+
+//myCallback1---------------------------------
+
+     function myCallBack1(){
+       if(checkStatement1 == false){
+         e1.setAttribute('style', 'visibility: visible');
+         console.log("tempPot1 myCallback1 fire");
+       }
+       else if (checkStatement1 == true) {
+         e1.setAttribute('style', 'visibility: hidden');
+         console.log("tempPot1 myCallback1 into function");
+       }
+
+     }
+// _______________________
+
+</script>
+
+  </body>
+</html>
